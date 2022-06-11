@@ -46,18 +46,30 @@ services:
     container_name: adminer
     image: adminer
     build: ./adminer
+    depends_on:
+     - mariadb
     expose:
       - 7000
     volumes:
       - adminer_vol:/var/www/html/adminer
     networks:
     - marianet
-    depends_on:
-     - nginx
     restart: always
 volumes:
   wordpress_vol:
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/amya/volums/wordpress_vol'
   maria_vol:
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/amya/volums/maria_vol'
   adminer_vol:
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/amya/volums/adminer_vol'
 networks:
   marianet:

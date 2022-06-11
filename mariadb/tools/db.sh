@@ -1,17 +1,17 @@
  service  mysql start
 
-echo "CREATE USER IF NOT EXISTS 'wpuser'@'%' identified by 'root123'" | mysql -u root
-echo "GRANT ALL PRIVILEGES ON * . * TO 'wpuser'@'%' identified by 'root123'" | mysql -u root
+echo "CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' identified by '${MYSQL_ROOT_PASSWORD}'" | mysql -u root
+echo "GRANT ALL PRIVILEGES ON * . * TO '${MYSQL_USER}'@'%' identified by '${MYSQL_ROOT_PASSWORD}'" | mysql -u root
 echo "FLUSH PRIVILEGES" | mysql -u root
 
 echo "-----------------------------------"
 
-echo "CREATE DATABASE wpdb" | mysql -u root
+echo "CREATE DATABASE ${MYSQL_DB}" | mysql -u root
 echo "FLUSH PRIVILEGES;" | mysql -u root
 
 echo "-----------------------------------"
 
-echo "ALTER USER 'root'@localhost IDENTIFIED BY 'root123';" | mysql -u root
+echo "ALTER USER 'root'@localhost IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';" | mysql -u root
 echo "FLUSH PRIVILEGES;" | mysql -u root
 echo "-----------------------------------"
 

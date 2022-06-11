@@ -1,7 +1,7 @@
 
 sleep 5
-wp core config --path=/var/www/wordpress --dbname=wpdb --dbuser=wpuser --dbpass=root123 --dbhost=mariadb  --skip-check --allow-root  --path=/var/www/html/wordpress 
-wp core install --url=https://localhost/ --title='Example' --admin_user=supervisor --admin_password=strongpassword --admin_email=info@example.com --path=/var/www/html/wordpress --allow-root 
+wp core config --path=/var/www/wordpress --dbname=${MYSQL_DB} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_ROOT_PASSWORD} --dbhost=mariadb  --skip-check --allow-root  --path=/var/www/html/wordpress 
+wp core install --url=https://10.13.100.245/ --title='Example' --admin_user=supervisor --admin_password=strongpassword --admin_email=info@example.com --path=/var/www/html/wordpress --allow-root 
 wp user create NEWUSERNAME ok@ooook.ok --role=subscriber --user_pass=password   --path=/var/www/html/wordpress  --allow-root
 
 wp plugin install redis-cache --activate --path=/var/www/html/wordpress  --allow-root

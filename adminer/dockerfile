@@ -11,9 +11,9 @@ WORKDIR /var/www/html
 
 RUN sed -i '/listen =/c listen = 7000' /etc/php/7.3/fpm/pool.d/www.conf
 
-run mkdir /var/www/html/adminer && wget "http://www.adminer.org/latest.php" -O /var/www/html/adminer/adminer.php && \
-sleep 4 && \
-    service php7.3-fpm start 
+run mkdir /var/www/html/adminer && wget "http://www.adminer.org/latest.php" -O /var/www/html/adminer/adminer.php
 
+ COPY ./tools/adminer.sh /adminer.sh
+ RUN chmod +x /adminer.sh
 
-ENTRYPOINT  sleep 2000
+ENTRYPOINT  sh /adminer.sh && sleep 2000
