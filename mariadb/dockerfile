@@ -1,0 +1,15 @@
+FROM debian:buster
+RUN apt-get  update ; \
+    apt-get upgrade ; \
+   apt-get install mariadb-server -y;\
+   apt-get install  mariadb-client -y
+#    touch /db.sh
+ADD ./tools/db.sh /db.sh
+RUN chmod +x /db.sh
+# WORKDIR /
+
+RUN sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+EXPOSE 3306
+
+ENTRYPOINT sh /db.sh

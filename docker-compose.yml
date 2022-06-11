@@ -1,0 +1,63 @@
+version: '3.7'
+services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    build: ./mariadb
+    restart: always
+    ports: 
+    - 3306:3306
+    volumes:
+      - maria_vol:/var/lib/mysql
+    networks:
+      - marianet
+    env_file:
+      - .env
+
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    build: ./wordpress
+    depends_on:
+     - mariadb
+    expose:
+      - 9000
+    volumes:
+    - wordpress_vol:/var/www/html/wordpress
+    networks:
+    - marianet
+    restart: always
+    env_file:
+      - .env
+  nginx:
+    container_name: nginx
+    image: nginxx
+    build: ./nginx
+    ports:
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - wordpress_vol:/var/www/html/wordpress
+      - adminer_vol:/var/www/html/adminer
+    networks:
+    - marianet
+    restart: always
+  adminer:
+    container_name: adminer
+    image: adminer
+    build: ./adminer
+    expose:
+      - 7000
+    volumes:
+      - adminer_vol:/var/www/html/adminer
+    networks:
+    - marianet
+    depends_on:
+     - nginx
+    restart: always
+volumes:
+  wordpress_vol:
+  maria_vol:
+  adminer_vol:
+networks:
+  marianet:
