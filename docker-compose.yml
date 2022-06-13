@@ -46,8 +46,6 @@ services:
     container_name: adminer
     image: adminer
     build: ./adminer
-    depends_on:
-     - mariadb
     expose:
       - 7000
     volumes:
@@ -60,16 +58,16 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/amya/volums/wordpress_vol'
+      device: '/home/amya/data/wordpress_vol'
   maria_vol:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/amya/volums/maria_vol'
+      device: '/home/amya/data/mariadb_vol'
   adminer_vol:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/amya/volums/adminer_vol'
+      device: '/home/amya/data/adminer_vol'
 networks:
   marianet:

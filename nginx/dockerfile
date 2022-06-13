@@ -1,10 +1,9 @@
 FROM debian:buster
-RUN apt-get update && \
-    apt-get upgrade && \
-    apt-get install nginx -y &&\
-    apt-get install php-fpm -y &&\
-    apt-get install openssl -y &&\
-    ls /etc/nginx 
+RUN apt-get update 
+ RUN   apt-get install nginx -y
+ RUN   apt-get install php-fpm -y
+ RUN   apt-get install openssl -y
+ RUN   ls /etc/nginx 
 COPY ./conf/default.conf /etc/nginx/sites-available/default
 
 COPY ./tools/ng.sh /ng.sh
